@@ -113,8 +113,8 @@ class _MyAppState extends State<MainPage> with SingleTickerProviderStateMixin {
                       });
                     })),
             Container(
-              margin: EdgeInsets.all(20),
-              alignment: Alignment.bottomRight,
+              margin: EdgeInsets.only(top: 210, right: 10),
+              alignment: Alignment.topRight,
               child: RaisedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -138,7 +138,7 @@ class _MyAppState extends State<MainPage> with SingleTickerProviderStateMixin {
                         BoxConstraints(maxWidth: 120.0, minHeight: 50.0),
                     alignment: Alignment.center,
                     child: Text(
-                      "Book Now",
+                      "Book Test Drive",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),

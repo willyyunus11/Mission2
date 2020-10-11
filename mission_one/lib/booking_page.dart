@@ -1,3 +1,5 @@
+//    import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class BookingController extends StatefulWidget {
@@ -6,18 +8,27 @@ class BookingController extends StatefulWidget {
 }
 
 class _BookingControllerState extends State<BookingController> {
-  final nameTFController = TextEditingController();
-  final emailTFController = TextEditingController();
-  final noTelpTFController = TextEditingController();
-  final cityTFController = TextEditingController();
+  final nameField = TextEditingController();
+  final emailField = TextEditingController();
+  final phoneField = TextEditingController();
+  final cityField = TextEditingController();
+
+  List<String> _locations = [
+    'HRV S MT',
+    'HRV S CVT',
+    'HRV E CVT',
+    'HRV SE CVT',
+    'HRV 1.8 PRESTIGE'
+  ]; // Option 2
+  String _selectedType;
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    nameTFController.dispose();
-    emailTFController.dispose();
-    noTelpTFController.dispose();
-    cityTFController.dispose();
+    nameField.dispose();
+    emailField.dispose();
+    phoneField.dispose();
+    cityField.dispose();
     super.dispose();
   }
 
@@ -25,16 +36,16 @@ class _BookingControllerState extends State<BookingController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Booking"),
+          title: Text("Book Test Drive"),
+          backgroundColor: Colors.red,
         ),
         body: Container(
-          // height: 350,
           margin: EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextField(
-                controller: nameTFController,
+                controller: nameField,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person),
                     hintText: "Full Name",
@@ -42,7 +53,7 @@ class _BookingControllerState extends State<BookingController> {
                         borderRadius: BorderRadius.circular(8))),
               ),
               TextField(
-                controller: emailTFController,
+                controller: emailField,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     hintText: "Email",
@@ -50,20 +61,35 @@ class _BookingControllerState extends State<BookingController> {
                         borderRadius: BorderRadius.circular(8))),
               ),
               TextField(
-                controller: noTelpTFController,
+                controller: phoneField,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.phone),
-                    hintText: "No Telp",
+                    hintText: "Phone",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8))),
               ),
               TextField(
-                controller: cityTFController,
+                controller: cityField,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.location_city),
                     hintText: "City",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8))),
+              ),
+              new DropdownButton<String>(
+                hint: Text('Choose Car Type'), // Not necessary for Option 1
+                value: _selectedType,
+                onChanged: (newValue) {
+                  setState(() {
+                    _selectedType = newValue;
+                  });
+                },
+                items: _locations.map((location) {
+                  return DropdownMenuItem(
+                    child: new Text(location),
+                    value: location,
+                  );
+                }).toList(),
               ),
               RaisedButton(
                 child: Container(
@@ -75,21 +101,21 @@ class _BookingControllerState extends State<BookingController> {
                   ),
                 ),
                 textColor: Colors.white,
-                color: Colors.blue,
+                color: Colors.red,
                 onPressed: () {
                   return showDialog(
                     context: context,
                     builder: (context) {
-                      if (nameTFController.text == "" ||
-                          emailTFController.text == "" ||
-                          noTelpTFController.text == "" ||
-                          cityTFController.text == "") {
+                      if (nameField.text == "" ||
+                          emailField.text == "" ||
+                          phoneField.text == "" ||
+                          cityField.text == "") {
                         return AlertDialog(
                           title: Text('Booking Failed'),
                           content: Text("Please fill all form field!"),
                           actions: <Widget>[
                             RaisedButton(
-                              color: Colors.blue,
+                              color: Colors.red,
                               child: Text("OK"),
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -103,16 +129,16 @@ class _BookingControllerState extends State<BookingController> {
                           content: SingleChildScrollView(
                             child: ListBody(
                               children: <Widget>[
-                                Text("Name: " + nameTFController.text),
-                                Text("Email: " + emailTFController.text),
-                                Text("Phone: " + noTelpTFController.text),
-                                Text("City: " + cityTFController.text),
+                                Text("Name: " + nameField.text),
+                                Text("Email: " + emailField.text),
+                                Text("Phone: " + phoneField.text),
+                                Text("City: " + cityField.text),
                               ],
                             ),
                           ),
                           actions: <Widget>[
                             RaisedButton(
-                              color: Colors.blue,
+                              color: Colors.red,
                               child: Text("OK"),
                               onPressed: () {
                                 Navigator.of(context).pop();
